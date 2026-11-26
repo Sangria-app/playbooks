@@ -1,13 +1,22 @@
 {
-  "schema": 1,
-  "entries": [
+  "entries" : [
     {
-      "id": "com.notepad-plus-plus.x64",
-      "name": "Notepad++ x64",
-      "version": "8.9.9.1",
-      "path": "notepad-plus-plus/x64.yaml",
-      "sha256": "7798f27304c2c7645737bcbb4811088601440d1cc9e2c41056f48241b2332de0",
-      "summary": "Official Notepad++ x64 release, installed silently through ARM64 Wine and FEX."
+      "category" : "applications",
+      "id" : "com.notepad-plus-plus.x64",
+      "name" : "Notepad++ x64",
+      "path" : "applications\/notepad-plus-plus\/x64.yaml",
+      "provider" : "github",
+      "related" : [
+
+      ],
+      "sha256" : "2a8f0be638118661b7834a80dcdfb9cf6c01db8c5648ea7bd928969ac0b31ad5",
+      "storeIdentifiers" : {
+        "release" : "v8.9.9.1",
+        "repository" : "notepad-plus-plus\/notepad-plus-plus"
+      },
+      "summary" : "Official Notepad++ x64 release, installed silently through ARM64 Wine and FEX.",
+      "version" : "8.9.9.1"
     }
-  ]
+  ],
+  "schema" : 1
 }

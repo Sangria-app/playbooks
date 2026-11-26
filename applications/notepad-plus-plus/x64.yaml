@@ -3,6 +3,12 @@ id: com.notepad-plus-plus.x64
 name: Notepad++ x64
 version: 8.9.9.1
 summary: Official Notepad++ x64 release, installed silently through ARM64 Wine and FEX.
+category: applications
+provider: github
+storeIdentifiers:
+  repository: notepad-plus-plus/notepad-plus-plus
+  release: v8.9.9.1
+related: []
 unattended: true
 assets:
   installer:
