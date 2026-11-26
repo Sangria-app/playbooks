@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "entries": [
+    {
+      "id": "com.notepad-plus-plus.x64",
+      "name": "Notepad++ x64",
+      "version": "8.9.9.1",
+      "path": "notepad-plus-plus/x64.yaml",
+      "sha256": "7798f27304c2c7645737bcbb4811088601440d1cc9e2c41056f48241b2332de0",
+      "summary": "Official Notepad++ x64 release, installed silently through ARM64 Wine and FEX."
+    }
+  ]
+}

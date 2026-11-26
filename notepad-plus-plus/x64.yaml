@@ -1,0 +1,32 @@
+schema: 1
+id: com.notepad-plus-plus.x64
+name: Notepad++ x64
+version: 8.9.9.1
+summary: Official Notepad++ x64 release, installed silently through ARM64 Wine and FEX.
+unattended: true
+assets:
+  installer:
+    url: https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.9.9.1/npp.8.9.9.1.Installer.x64.exe
+    sha256: ce3267f5c4e7e42f847e00f4b20234da6150647203033cdde34a69593efc3152
+    fileName: npp.8.9.9.1.Installer.x64.exe
+runtime:
+  mode: pinned
+  id: metalsharp-wine-10.0-arm64
+graphics:
+  mode: pinned
+  backend: wine
+steps:
+  - download:
+      asset: installer
+  - prefix.create:
+      name: Notepad++ x64
+  - wine.run:
+      path: ${assets.installer}
+      args: ["/S"]
+      timeout: 180
+      expectedExitCodes: [0]
+shortcuts:
+  - name: Notepad++
+    target: 'C:\Program Files\Notepad++\notepad++.exe'
+    workingDirectory: 'C:\Program Files\Notepad++'
+    args: []
