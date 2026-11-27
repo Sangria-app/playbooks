@@ -1,0 +1,50 @@
+schema: 1
+id: com.epicgames.launcher
+name: Epic Games Launcher
+version: rolling
+summary: Latest official Epic Games Launcher MSI. Currently blocked by a MetalSharp MSI runtime hang on this build.
+category: stores
+provider: epic
+storeIdentifiers:
+  store: epic
+  channel: stable
+related: []
+unattended: true
+installMethods: [download, localInstaller, existingInstallation]
+assets:
+  installer:
+    url: https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi
+    fileName: EpicGamesLauncherInstaller.msi
+  vcrun:
+    url: https://aka.ms/vs/17/release/vc_redist.x64.exe
+    fileName: vc_redist.x64.exe
+runtime:
+  mode: pinned
+  id: metalsharp-wine-10.0-arm64
+graphics:
+  mode: pinned
+  backend: dxvk
+steps:
+  - download:
+      asset: installer
+  - download:
+      asset: vcrun
+  - prefix.create:
+      name: Epic Games Launcher
+  - wine.tool:
+      tool: winecfg
+      args: [-v, win10]
+  - wine.run:
+      path: ${assets.vcrun}
+      args: [/install, /quiet, /norestart]
+      timeout: 600
+  - dependency.install:
+      dependency: corefonts
+  - wine.kill: {}
+  - msi.exec:
+      path: ${assets.installer}
+shortcuts:
+  - name: Epic Games Launcher
+    target: 'C:\Program Files\Epic Games\Launcher\Portal\Binaries\Win64\EpicGamesLauncher.exe'
+    workingDirectory: 'C:\Program Files\Epic Games\Launcher\Portal\Binaries\Win64'
+    args: [-opengl, -SkipBuildPatchPrereq]

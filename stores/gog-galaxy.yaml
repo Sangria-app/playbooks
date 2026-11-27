@@ -1,0 +1,60 @@
+schema: 1
+id: com.gog.galaxy
+name: GOG Galaxy
+version: rolling
+summary: Latest official offline GOG Galaxy installer with dependencies. GalaxyClientService currently fails with error 1053 on MetalSharp.
+category: stores
+provider: gog
+storeIdentifiers:
+  store: gog
+  channel: stable
+related: []
+unattended: true
+installMethods: [download, localInstaller, existingInstallation]
+assets:
+  installer:
+    resolve:
+      metadataURL: https://remote-config.gog.com/components/webinstaller?component_version=2.0.0
+      jsonPath: content.windows.downloadLink
+    fileName: setup_galaxy.exe
+  vcrun:
+    url: https://aka.ms/vs/17/release/vc_redist.x64.exe
+    fileName: vc_redist.x64.exe
+runtime:
+  mode: pinned
+  id: metalsharp-wine-10.0-arm64
+graphics:
+  mode: pinned
+  backend: dxvk
+steps:
+  - download:
+      asset: installer
+  - download:
+      asset: vcrun
+  - prefix.create:
+      name: GOG Galaxy
+  - wine.run:
+      path: ${assets.vcrun}
+      args: [/install, /quiet, /norestart]
+      timeout: 600
+  - dependency.install:
+      dependency: corefonts
+  - dependency.install:
+      dependency: dotnet48
+  - wine.kill: {}
+  - wine.tool:
+      tool: winecfg
+      args: [-v, win10]
+  - dll.override:
+      dll: libglesv2
+      mode: ""
+  - wine.run:
+      path: ${assets.installer}
+      args: [/VERYSILENT, /SUPPRESSMSGBOXES, /NORESTART, /LOG=C:\inno-setup.log]
+      expectedExitCodes: [0, 232]
+      timeout: 900
+shortcuts:
+  - name: GOG Galaxy
+    target: 'C:\Program Files\GOG Galaxy\GalaxyClient.exe'
+    workingDirectory: 'C:\Program Files\GOG Galaxy'
+    args: [/runWithoutUpdating, /deelevated]

@@ -1,0 +1,40 @@
+schema: 1
+id: com.valvesoftware.steam
+name: Steam
+version: rolling
+summary: Latest official Steam installer. Supports download, local installer and existing installation.
+category: stores
+provider: steam
+storeIdentifiers:
+  store: steam
+  channel: stable
+related: []
+unattended: true
+installMethods: [download, localInstaller, existingInstallation]
+assets:
+  installer:
+    url: https://cdn.akamai.steamstatic.com/client/installer/SteamSetup.exe
+    fileName: SteamSetup.exe
+runtime:
+  mode: pinned
+  id: metalsharp-wine-10.0-arm64
+graphics:
+  mode: pinned
+  backend: dxvk
+steps:
+  - download:
+      asset: installer
+  - prefix.create:
+      name: Steam
+  - wine.tool:
+      tool: winecfg
+      args: [-v, win10]
+  - wine.run:
+      path: ${assets.installer}
+      args: [/S]
+      timeout: 900
+shortcuts:
+  - name: Steam
+    target: 'C:\Program Files (x86)\Steam\steam.exe'
+    workingDirectory: 'C:\Program Files (x86)\Steam'
+    args: []

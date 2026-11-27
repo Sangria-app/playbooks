@@ -1,0 +1,54 @@
+schema: 1
+id: com.ea.desktop
+name: EA app
+version: rolling
+summary: Latest official EA app installer. Supports download, local installer and existing installation.
+category: stores
+provider: ea
+storeIdentifiers:
+  store: ea
+  channel: stable
+related: []
+unattended: true
+installMethods: [download, localInstaller, existingInstallation]
+assets:
+  installer:
+    url: https://origin-a.akamaihd.net/EA-Desktop-Client-Download/installer-releases/EAappInstaller.exe
+    fileName: EAappInstaller.exe
+  vcrun:
+    url: https://aka.ms/vs/17/release/vc_redist.x64.exe
+    fileName: vc_redist.x64.exe
+runtime:
+  mode: pinned
+  id: metalsharp-wine-10.0-arm64
+graphics:
+  mode: pinned
+  backend: dxvk
+steps:
+  - download:
+      asset: installer
+  - download:
+      asset: vcrun
+  - prefix.create:
+      name: EA app
+  - wine.tool:
+      tool: winecfg
+      args: [-v, win10]
+  - wine.run:
+      path: ${assets.vcrun}
+      args: [/install, /quiet, /norestart]
+      timeout: 600
+  - dependency.install:
+      dependency: corefonts
+  - wine.kill: {}
+  - wine.run:
+      path: ${assets.installer}
+      environment:
+        EAX_LAUNCH_CLIENT: "0"
+      expectedExitCodes: [0, 768]
+      timeout: 1200
+shortcuts:
+  - name: EA app
+    target: 'C:\Program Files\Electronic Arts\EA Desktop\EA Desktop\EALauncher.exe'
+    workingDirectory: 'C:\Program Files\Electronic Arts\EA Desktop\EA Desktop'
+    args: []

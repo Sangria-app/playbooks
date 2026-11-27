@@ -1,0 +1,104 @@
+# Sangria playbooks agent guide
+
+Keep this file and `README.md` current when the schema, installation flow, catalog layout or compatibility status changes.
+
+## Repository purpose
+
+This is the official recipe catalog for Sangria. YAML files describe unattended setup through a native ARM64 Wine/FEX runtime on macOS. The app can also load trusted third-party catalogs and local YAML files.
+
+Categories currently live under:
+
+- `applications/`
+- `stores/`
+- `games/` when actual game recipes are added
+
+`index.json` and `index.json.sig` are generated artifacts that are committed for clients. Edit YAML recipes, not the index by hand.
+
+## Required checks
+
+Use the Sangria CLI from `/Users/kweiss/Projects/unnamed-app-launcher`:
+
+```bash
+for recipe in $(git ls-files --cached --others --exclude-standard '*.yaml'); do
+  "/Users/kweiss/Projects/unnamed-app-launcher/.build/out/Products/Debug/sangria" playbook validate "$recipe"
+done
+"/Users/kweiss/Projects/unnamed-app-launcher/.build/out/Products/Debug/sangria" catalog build /Users/kweiss/Projects/Sangria-playbooks --sign
+git diff --check
+```
+
+Build Sangria first if the binary is missing. The signing command uses the existing local keychain state. Never print, copy or exfiltrate private signing material.
+
+For local smoke tests, always set an isolated `SANGRIA_HOME` in the app repository's `.artifacts`. Do not uninstall user data. Verify the resulting executable and shortcut, not only YAML syntax.
+
+## Schema rules
+
+Every recipe needs `schema: 1`, a unique ASCII `id`, `name`, `version`, `unattended`, runtime/graphics policies, steps and optional shortcuts. Official recipes must have `unattended: true` and must actually complete without hidden input. Use `wait.forInstallation` when a human intentionally installs a game through the store UI.
+
+Pinned versions need a 64-character SHA-256 for each asset. `version: rolling` allows an omitted hash and downloads on every installation. Do not pin a store to a dated binary merely because it is the current release.
+
+A rolling asset can either use a stable HTTPS `url` or:
+
+```yaml
+resolve:
+  metadataURL: https://example.com/latest.json
+  jsonPath: content.windows.downloadLink
+```
+
+Metadata and resolved downloads must remain HTTPS and credential-free. JSON metadata is limited to 1 MiB.
+
+Use `installMethods` when appropriate:
+
+```yaml
+installMethods: [download, localInstaller, existingInstallation]
+```
+
+Existing installation creates a fresh prefix and a shortcut without moving existing files. A local installer overrides only the `installer` asset; other dependencies still run.
+
+## Actions
+
+- `download`: fetch an asset, resolving metadata first when requested.
+- `verify`: check a pinned asset hash.
+- `extract`: extract an archive inside the current prefix.
+- `prefix.create`: create a new Wine environment.
+- `wine.run`: run an executable with optional `args`, `environment`, `timeout` and `expectedExitCodes`.
+- `wine.tool`: run a Wine utility such as `winecfg -v win10`.
+- `msi.exec`: run an MSI silently with `/quiet /norestart`.
+- `dependency.install`: install a supported Winetricks dependency.
+- `registry.set`: write a registry value.
+- `dll.override`: set a DLL loading order; an empty mode disables the DLL.
+- `shortcut.create`: add a program without adding installation steps.
+- `store.install`: install a store by ID into the current prefix, skipping its nested `prefix.create`.
+- `wait.forInstallation`: pause for the user, who continues after installing through the store UI.
+- `wine.kill`: stop this prefix's Wine processes, then continue with later steps.
+
+`prefix.create` supports `profile: hoyoplay` at the playbook root. This applies default metadata, while game-specific work still happens at launch. Do not make users reinstall HoYoPlay to change graphics settings.
+
+## Dependency guidance
+
+Compare against maintained Lutris/Bottles recipes, but test every assumption on the actual runtime. Common dependencies:
+
+- Steam: normally no additional dependency is needed.
+- EA app: `corefonts`; optional game-specific dependencies do not belong in the base store recipe.
+- Epic: `corefonts`.
+- GOG: Visual C++, `corefonts`, `dotnet48`, offline installer and `libglesv2` disabled.
+- HoYoPlay: Visual C++ and `corefonts`, Windows 11, DXMT/MSync and launch-time game profiles.
+
+Apply the final Windows version after Winetricks, because verbs such as `dotnet48` can switch the prefix back to Windows 7. Use `winecfg -v`, not only a registry value.
+
+Do not add PhysX to the base EA recipe; its vendor installer currently exits with status 4.
+
+## Git workflow
+
+Work on `dev`. Before every commit, show validation and the changed files and obtain approval. Push only after approval. Updating `main` requires explicit approval as well. Rebuild and sign the index before every recipe commit. Do not commit installers, downloaded assets, private keys, test prefixes or logs.
+
+## Current compatibility status
+
+Keep this section and the README table accurate:
+
+- Notepad++: MSI installation passed.
+- Steam: silent installation passed.
+- EA app: installation passed; `StoreSupport` resolves launchers in versioned folders.
+- HoYoPlay: silent installation passed; actual games need compatibility work beyond the base recipe.
+- GOG: offline installation completes, but `GalaxyClientService` fails with error 1053 and the renderer crashes.
+- Epic: MSI stalls on the current runtime and is not ready.
+- PhysX: vendor installer exits with status 4 and needs an alternate extraction path.

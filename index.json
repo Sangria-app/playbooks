@@ -1,8 +1,99 @@
 {
   "entries" : [
     {
+      "category" : "stores",
+      "id" : "com.ea.desktop",
+      "installMethods" : [
+        "download",
+        "localInstaller",
+        "existingInstallation"
+      ],
+      "name" : "EA app",
+      "path" : "stores\/ea-app.yaml",
+      "provider" : "ea",
+      "related" : [
+
+      ],
+      "sha256" : "390b960a04291fdcdf829ecb4274af51fda861fcf9d59a9d215f4b7e0040d205",
+      "storeIdentifiers" : {
+        "channel" : "stable",
+        "store" : "ea"
+      },
+      "summary" : "Latest official EA app installer. Supports download, local installer and existing installation.",
+      "version" : "rolling"
+    },
+    {
+      "category" : "stores",
+      "id" : "com.epicgames.launcher",
+      "installMethods" : [
+        "download",
+        "localInstaller",
+        "existingInstallation"
+      ],
+      "name" : "Epic Games Launcher",
+      "path" : "stores\/epic-games.yaml",
+      "provider" : "epic",
+      "related" : [
+
+      ],
+      "sha256" : "8f8292290ce4c0e67f15f850bdfbbb38b6b309ea615473dd2e60ad097b43263f",
+      "storeIdentifiers" : {
+        "channel" : "stable",
+        "store" : "epic"
+      },
+      "summary" : "Latest official Epic Games Launcher MSI. Currently blocked by a MetalSharp MSI runtime hang on this build.",
+      "version" : "rolling"
+    },
+    {
+      "category" : "stores",
+      "id" : "com.gog.galaxy",
+      "installMethods" : [
+        "download",
+        "localInstaller",
+        "existingInstallation"
+      ],
+      "name" : "GOG Galaxy",
+      "path" : "stores\/gog-galaxy.yaml",
+      "provider" : "gog",
+      "related" : [
+
+      ],
+      "sha256" : "9b67d64a090f3c689f41950b923a5d74bece6c0f8099fad800fcf12c430aedb4",
+      "storeIdentifiers" : {
+        "channel" : "stable",
+        "store" : "gog"
+      },
+      "summary" : "Latest official offline GOG Galaxy installer with dependencies. GalaxyClientService currently fails with error 1053 on MetalSharp.",
+      "version" : "rolling"
+    },
+    {
+      "category" : "stores",
+      "id" : "com.hoyoverse.hoyoplay",
+      "installMethods" : [
+        "download",
+        "localInstaller",
+        "existingInstallation"
+      ],
+      "name" : "HoYoPlay",
+      "path" : "stores\/hoyoplay.yaml",
+      "provider" : "hoyoverse",
+      "related" : [
+
+      ],
+      "sha256" : "7436814b8ee6b48546602e30f0829d5e01d2b7639ca0499ab63f468c02b49522",
+      "storeIdentifiers" : {
+        "channel" : "stable",
+        "store" : "hoyoverse"
+      },
+      "summary" : "Latest official HoYoPlay and Visual C++ runtime. Installed HoYoverse games are detected and configured at launch.",
+      "version" : "rolling"
+    },
+    {
       "category" : "applications",
       "id" : "com.notepad-plus-plus.x64",
+      "installMethods" : [
+        "download"
+      ],
       "name" : "Notepad++ x64",
       "path" : "applications\/notepad-plus-plus\/x64.yaml",
       "provider" : "github",
@@ -16,6 +107,28 @@
       },
       "summary" : "Official Notepad++ x64 release, installed silently through ARM64 Wine and FEX.",
       "version" : "8.9.9.1"
+    },
+    {
+      "category" : "stores",
+      "id" : "com.valvesoftware.steam",
+      "installMethods" : [
+        "download",
+        "localInstaller",
+        "existingInstallation"
+      ],
+      "name" : "Steam",
+      "path" : "stores\/steam.yaml",
+      "provider" : "steam",
+      "related" : [
+
+      ],
+      "sha256" : "196733fa24fc153d1e3649cf248c00810b77f6afd30830b7fb470daf55c70f0f",
+      "storeIdentifiers" : {
+        "channel" : "stable",
+        "store" : "steam"
+      },
+      "summary" : "Latest official Steam installer. Supports download, local installer and existing installation.",
+      "version" : "rolling"
     }
   ],
   "schema" : 1

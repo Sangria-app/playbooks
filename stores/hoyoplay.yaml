@@ -1,0 +1,65 @@
+schema: 1
+id: com.hoyoverse.hoyoplay
+name: HoYoPlay
+version: rolling
+summary: Latest official HoYoPlay and Visual C++ runtime. Installed HoYoverse games are detected and configured at launch.
+category: stores
+provider: hoyoverse
+profile: hoyoplay
+storeIdentifiers:
+  store: hoyoverse
+  channel: stable
+related: []
+unattended: true
+installMethods: [download, localInstaller, existingInstallation]
+assets:
+  installer:
+    url: https://sg-public-api.hoyoverse.com/event/download_porter/trace/hyp_global/hyphoyoverse/default?url=https%3A%2F%2Fhoyoplay.hoyoverse.com%2F
+    fileName: HoYoPlay_installer.exe
+  vcrun:
+    url: https://aka.ms/vs/17/release/vc_redist.x64.exe
+    fileName: vc_redist.x64.exe
+runtime:
+  mode: pinned
+  id: metalsharp-wine-10.0-arm64
+graphics:
+  mode: pinned
+  backend: dxmt
+steps:
+  - download:
+      asset: installer
+  - download:
+      asset: vcrun
+  - prefix.create:
+      name: HoYoPlay
+  - wine.run:
+      path: ${assets.vcrun}
+      args: [/install, /quiet, /norestart]
+      timeout: 600
+  - dependency.install:
+      dependency: corefonts
+  - wine.kill: {}
+  - wine.tool:
+      tool: winecfg
+      args: [-v, win11]
+  - registry.set:
+      path: HKCU\Software\Wine\Mac Driver
+      name: RetinaMode
+      value: y
+  - registry.set:
+      path: HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings
+      name: ProxyEnable
+      type: REG_DWORD
+      value: "0"
+  - dll.override:
+      dll: winemenubuilder.exe
+      mode: ""
+  - wine.run:
+      path: ${assets.installer}
+      args: [/S]
+      timeout: 1200
+shortcuts:
+  - name: HoYoPlay
+    target: 'C:\Program Files\HoYoPlay\launcher.exe'
+    workingDirectory: 'C:\Program Files\HoYoPlay'
+    args: []
