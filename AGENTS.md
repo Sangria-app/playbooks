@@ -89,6 +89,7 @@ Existing installation creates a fresh prefix and a shortcut without moving exist
 - `dll.override`: set a DLL loading order; an empty mode disables the DLL.
 - `shortcut.create`: add a program without adding installation steps.
 - `store.install`: install a store by ID, or all stores in the selected `storeOptions` entry when no ID is given, skipping each nested `prefix.create`.
+- `store.launch`: start a store without waiting for it to exit, using an explicit store ID or the last store in the selected option.
 - `wait.forInstallation`: pause for the user, who continues after installing through the store UI.
 - `wine.kill`: stop this prefix's Wine processes, then continue with later steps.
 

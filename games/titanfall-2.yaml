@@ -29,6 +29,7 @@ steps:
   - prefix.create:
       name: Titanfall 2
   - store.install: {}
+  - store.launch: {}
   - wait.forInstallation:
       message: Install Titanfall 2 through the selected store. Review and accept any EA agreements in the vendor interface yourself, then return to Sangria and choose Continue.
   - wine.kill: {}

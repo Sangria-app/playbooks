@@ -72,6 +72,8 @@ steps:
       name: Example Game
   - store.install:
       store: com.valvesoftware.steam
+  - store.launch:
+      store: com.valvesoftware.steam
   - wait.forInstallation:
       message: Install Example Game through Steam, then choose Continue in Sangria
   - wine.kill: {}
@@ -81,7 +83,7 @@ steps:
       value: enabled
 ```
 
-`store.install` skips the store's own `prefix.create`, so no second prefix is created. `wait.forInstallation` displays a Continue button. `wine.kill` is a separate action and only stops the current prefix.
+`store.install` skips the store's own `prefix.create`, so no second prefix is created. `store.launch` starts the store without waiting for it to exit, allowing the store UI to remain open during installation. `wait.forInstallation` displays a Continue button. `wine.kill` is a separate action and only stops the current prefix.
 
 A game can offer store alternatives with `storeOptions`. An empty `store.install` installs every store in the selected option, and `storeOption` on a shortcut selects the matching launch target:
 
@@ -97,6 +99,7 @@ storeOptions:
 steps:
   - prefix.create: {name: Example Game}
   - store.install: {}
+  - store.launch: {}
   - wait.forInstallation: {message: Install the game, then choose Continue}
   - wine.kill: {}
 shortcuts:
@@ -120,6 +123,7 @@ The native installer displays these choices. For CLI catalog installation, pass 
 - `dependency.install` for supported Winetricks dependencies
 - `registry.set` and `dll.override`
 - `shortcut.create` for shortcuts without another installation step
+- `store.launch` to start a store without waiting for it to exit
 
 `wine.run` also accepts `workingDirectory`. Windows versions are changed through `winecfg -v`, after dependencies that could change them again.
 
