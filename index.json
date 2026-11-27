@@ -80,12 +80,12 @@
       "related" : [
 
       ],
-      "sha256" : "7436814b8ee6b48546602e30f0829d5e01d2b7639ca0499ab63f468c02b49522",
+      "sha256" : "0a759b503c148bf037434ccde1e63a96a5c84dc2f08bcc515ecb3f438dfb125f",
       "storeIdentifiers" : {
         "channel" : "stable",
         "store" : "hoyoverse"
       },
-      "summary" : "Latest official HoYoPlay and Visual C++ runtime. Installed HoYoverse games are detected and configured at launch.",
+      "summary" : "Latest official HoYoPlay installer and Visual C++ runtime. The current installer waits at its install selector on MetalSharp; unattended completion is not verified.",
       "version" : "rolling"
     },
     {
