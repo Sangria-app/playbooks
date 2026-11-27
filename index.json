@@ -19,7 +19,48 @@
         "channel" : "stable",
         "store" : "ea"
       },
+      "storeOptions" : [
+
+      ],
       "summary" : "Latest official EA app installer. Supports download, local installer and existing installation.",
+      "version" : "rolling"
+    },
+    {
+      "category" : "games",
+      "id" : "com.ea.titanfall2",
+      "installMethods" : [
+        "download"
+      ],
+      "name" : "Titanfall 2",
+      "path" : "games\/titanfall-2.yaml",
+      "provider" : "ea",
+      "related" : [
+        "com.valvesoftware.steam",
+        "com.ea.desktop"
+      ],
+      "sha256" : "4e8280d1b3e14d1fce5d37125e08cf5667f512aded903806cac23ebb58fe7925",
+      "storeIdentifiers" : {
+        "steam" : "1237970"
+      },
+      "storeOptions" : [
+        {
+          "id" : "steam",
+          "name" : "Steam",
+          "stores" : [
+            "com.valvesoftware.steam"
+          ],
+          "summary" : "Installs only Steam. Steam manages the required EA app integration and uses the default Steam library path."
+        },
+        {
+          "id" : "ea",
+          "name" : "EA app",
+          "stores" : [
+            "com.ea.desktop"
+          ],
+          "summary" : "Installs EA app and uses the default EA Games installation path."
+        }
+      ],
+      "summary" : "Install Titanfall 2 through Steam or EA app. Steam manages the EA app integration required by the game. Game installation and launch are not yet verified on MetalSharp.",
       "version" : "rolling"
     },
     {
@@ -41,6 +82,9 @@
         "channel" : "stable",
         "store" : "epic"
       },
+      "storeOptions" : [
+
+      ],
       "summary" : "Latest official Epic Games Launcher MSI. Currently blocked by a MetalSharp MSI runtime hang on this build.",
       "version" : "rolling"
     },
@@ -63,6 +107,9 @@
         "channel" : "stable",
         "store" : "gog"
       },
+      "storeOptions" : [
+
+      ],
       "summary" : "Latest official offline GOG Galaxy installer with dependencies. GalaxyClientService currently fails with error 1053 on MetalSharp.",
       "version" : "rolling"
     },
@@ -85,6 +132,9 @@
         "channel" : "stable",
         "store" : "hoyoverse"
       },
+      "storeOptions" : [
+
+      ],
       "summary" : "Latest official HoYoPlay installer and Visual C++ runtime. The current installer waits at its install selector on MetalSharp; unattended completion is not verified.",
       "version" : "rolling"
     },
@@ -107,6 +157,9 @@
         "channel" : "stable",
         "store" : "steam"
       },
+      "storeOptions" : [
+
+      ],
       "summary" : "Latest official Steam installer. Supports download, local installer and existing installation.",
       "version" : "rolling"
     }

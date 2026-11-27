@@ -8,7 +8,7 @@ Recipes are installed through a signed catalog. Sangria also supports trusted th
 
 - `applications/` — desktop application recipes
 - `stores/` — Steam, Epic Games Launcher, GOG Galaxy, EA app and HoYoPlay
-- `games/` — future game-specific recipes
+- `games/` — game-specific recipes with store installation choices where supported
 - `index.json` — generated catalog index
 - `index.json.sig` — generated catalog signature
 
@@ -83,6 +83,34 @@ steps:
 
 `store.install` skips the store's own `prefix.create`, so no second prefix is created. `wait.forInstallation` displays a Continue button. `wine.kill` is a separate action and only stops the current prefix.
 
+A game can offer store alternatives with `storeOptions`. An empty `store.install` installs every store in the selected option, and `storeOption` on a shortcut selects the matching launch target:
+
+```yaml
+storeOptions:
+  - id: steam
+    name: Steam
+    summary: Installs Steam.
+    stores: [com.valvesoftware.steam]
+  - id: ea
+    name: EA app
+    stores: [com.ea.desktop]
+steps:
+  - prefix.create: {name: Example Game}
+  - store.install: {}
+  - wait.forInstallation: {message: Install the game, then choose Continue}
+  - wine.kill: {}
+shortcuts:
+  - name: Example Game
+    storeOption: steam
+    target: 'C:\Program Files (x86)\Steam\steamapps\common\Example\Game.exe'
+    args: []
+  - name: Example Game
+    storeOption: ea
+    target: 'C:\Program Files\EA Games\Example\Game.exe'
+```
+
+The native installer displays these choices. For CLI catalog installation, pass `--store steam` or `--store ea` to `sangria source install`; the choice is required when a recipe has multiple options.
+
 ## Other actions
 
 - `download`, `verify`, `extract`
@@ -101,6 +129,7 @@ steps:
 |---|---|
 | Steam | Silent installation passed |
 | EA app | Isolated installation trial completed; production unattended support awaits license-consent review. Versioned launcher paths are resolved at launch |
+| Titanfall 2 | Steam and EA choices are available. The Steam variant installs only Steam and lets Steam manage the game-specific EA app integration. Game installation and launch on MetalSharp are unverified; EA agreements remain visible in the vendor interface |
 | HoYoPlay | Current installer waits at its install selector on MetalSharp; unattended completion is not verified. Actual games require separate compatibility review |
 | GOG Galaxy | Offline installation completes; `GalaxyClientService` fails with 1053 and the renderer crashes |
 | Epic Games Launcher | MSI stalls on the current runtime and is not ready |

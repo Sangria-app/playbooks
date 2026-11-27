@@ -1,0 +1,45 @@
+schema: 1
+id: com.ea.titanfall2
+name: Titanfall 2
+version: rolling
+summary: Install Titanfall 2 through Steam or EA app. Steam manages the EA app integration required by the game. Game installation and launch are not yet verified on MetalSharp.
+category: games
+provider: ea
+storeIdentifiers:
+  steam: "1237970"
+related: [com.valvesoftware.steam, com.ea.desktop]
+unattended: true
+installMethods: [download]
+storeOptions:
+  - id: steam
+    name: Steam
+    summary: Installs only Steam. Steam manages the required EA app integration and uses the default Steam library path.
+    stores: [com.valvesoftware.steam]
+  - id: ea
+    name: EA app
+    summary: Installs EA app and uses the default EA Games installation path.
+    stores: [com.ea.desktop]
+runtime:
+  mode: pinned
+  id: metalsharp-wine-10.0-arm64
+graphics:
+  mode: pinned
+  backend: dxvk
+steps:
+  - prefix.create:
+      name: Titanfall 2
+  - store.install: {}
+  - wait.forInstallation:
+      message: Install Titanfall 2 through the selected store. Review and accept any EA agreements in the vendor interface yourself, then return to Sangria and choose Continue.
+  - wine.kill: {}
+shortcuts:
+  - name: Titanfall 2
+    storeOption: steam
+    target: 'C:\Program Files (x86)\Steam\steamapps\common\Titanfall2\Titanfall2.exe'
+    workingDirectory: 'C:\Program Files (x86)\Steam\steamapps\common\Titanfall2'
+    args: []
+  - name: Titanfall 2
+    storeOption: ea
+    target: 'C:\Program Files\EA Games\Titanfall2\Titanfall2.exe'
+    workingDirectory: 'C:\Program Files\EA Games\Titanfall2'
+    args: []

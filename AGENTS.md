@@ -73,6 +73,8 @@ installMethods: [download, localInstaller, existingInstallation]
 
 Existing installation creates a fresh prefix and a shortcut without moving existing files. A local installer overrides only the `installer` asset; other dependencies still run.
 
+`storeOptions` defines install-time store alternatives with stable option IDs, display names and one or more store recipe IDs. An empty `store.install: {}` installs the selected option's stores in order. Root shortcuts may use `storeOption` to select a matching target. Catalog entries carry these options for the native chooser; CLI installation accepts `--store <option-id>`.
+
 ## Actions
 
 - `download`: fetch an asset, resolving metadata first when requested.
@@ -86,7 +88,7 @@ Existing installation creates a fresh prefix and a shortcut without moving exist
 - `registry.set`: write a registry value.
 - `dll.override`: set a DLL loading order; an empty mode disables the DLL.
 - `shortcut.create`: add a program without adding installation steps.
-- `store.install`: install a store by ID into the current prefix, skipping its nested `prefix.create`.
+- `store.install`: install a store by ID, or all stores in the selected `storeOptions` entry when no ID is given, skipping each nested `prefix.create`.
 - `wait.forInstallation`: pause for the user, who continues after installing through the store UI.
 - `wine.kill`: stop this prefix's Wine processes, then continue with later steps.
 
@@ -116,6 +118,7 @@ Keep this section and the README table accurate:
 
 - Steam: silent installation passed.
 - EA app: an isolated `/quiet /norestart` trial completed, while the interactive bootstrapper waits after package detection. Production silent installation requires explicit license acceptance and maintainer approval of the consent flow before quiet switches are added. `StoreSupport` resolves launchers in versioned folders.
+- Titanfall 2: Steam and EA choices are defined. The Steam variant installs only Steam, which manages the game-specific EA app integration. Game installation and launch on MetalSharp remain unverified. Do not accept EA agreements through recipe flags or metadata.
 - HoYoPlay: the current `/S` installer waits at its install selector on MetalSharp. Repeated isolated probes did not complete unattended; initialization and vendor configuration networking succeeded. Do not attribute this to MSync or FEX flags without new evidence. Actual games need compatibility work beyond the base recipe.
 - GOG: offline installation completes, but `GalaxyClientService` fails with error 1053 and the renderer crashes.
 - Epic: MSI stalls on the current runtime and is not ready.
