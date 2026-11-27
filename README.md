@@ -101,8 +101,8 @@ steps:
 |---|---|
 | Notepad++ | MSI installation passed |
 | Steam | Silent installation passed |
-| EA app | Installation passed; versioned launcher paths are resolved at launch |
-| HoYoPlay | Silent installation passed; actual games require separate compatibility review |
+| EA app | Isolated installation trial completed; production unattended support awaits license-consent review. Versioned launcher paths are resolved at launch |
+| HoYoPlay | Current installer waits at its install selector on MetalSharp; unattended completion is not verified. Actual games require separate compatibility review |
 | GOG Galaxy | Offline installation completes; `GalaxyClientService` fails with 1053 and the renderer crashes |
 | Epic Games Launcher | MSI stalls on the current runtime and is not ready |
 | NVIDIA PhysX | Vendor installer exits with status 4; not part of the base EA recipe |
