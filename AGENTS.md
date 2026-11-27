@@ -115,8 +115,8 @@ Work on `dev`. Before every commit, show validation and the changed files and ob
 Keep this section and the README table accurate:
 
 - Steam: silent installation passed.
-- EA app: installation passed; `StoreSupport` resolves launchers in versioned folders.
-- HoYoPlay: silent installation passed; actual games need compatibility work beyond the base recipe.
+- EA app: an isolated `/quiet /norestart` trial completed, while the interactive bootstrapper waits after package detection. Production silent installation requires explicit license acceptance and maintainer approval of the consent flow before quiet switches are added. `StoreSupport` resolves launchers in versioned folders.
+- HoYoPlay: the current `/S` installer waits at its install selector on MetalSharp. Repeated isolated probes did not complete unattended; initialization and vendor configuration networking succeeded. Do not attribute this to MSync or FEX flags without new evidence. Actual games need compatibility work beyond the base recipe.
 - GOG: offline installation completes, but `GalaxyClientService` fails with error 1053 and the renderer crashes.
 - Epic: MSI stalls on the current runtime and is not ready.
 - PhysX: vendor installer exits with status 4 and needs an alternate extraction path.

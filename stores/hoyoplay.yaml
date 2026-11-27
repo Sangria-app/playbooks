@@ -2,7 +2,7 @@ schema: 1
 id: com.hoyoverse.hoyoplay
 name: HoYoPlay
 version: rolling
-summary: Latest official HoYoPlay and Visual C++ runtime. Installed HoYoverse games are detected and configured at launch.
+summary: Latest official HoYoPlay installer and Visual C++ runtime. The current installer waits at its install selector on MetalSharp; unattended completion is not verified.
 category: stores
 provider: hoyoverse
 profile: hoyoplay
