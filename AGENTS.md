@@ -14,6 +14,14 @@ Categories currently live under:
 
 `index.json` and `index.json.sig` are generated artifacts that are committed for clients. Edit YAML recipes, not the index by hand.
 
+## Licensing and restricted components
+
+- License rules apply to copied recipes and scripts as well as application code. Before borrowing copyrightable material, identify the upstream license and preserve all copyright and license notices. GPL/LGPL borrowing is allowed only when every obligation is met, including copyleft, license-text and corresponding-source requirements. Create or update `CREDITS.md` with the upstream URL, exact revision, license, copied or modified files and distribution obligations; attribution alone does not satisfy GPL. If the resulting licensing is incompatible or unclear, stop and contact the project owner/maintainer (`@kira-we1ss` on GitHub) before combining the material.
+- A package that requires affirmative EULA or license acceptance must not be installed as if it were fully silent. The user must see the license and explicitly accept or decline it before the relevant step. Never pre-accept, auto-click, hide or bypass a license through silent flags, registry values or playbook metadata. `unattended: true` must not conceal required consent. Implement a native host consent flow first, use the vendor installer's own prompt, or leave the recipe unsupported.
+- If redistribution or automatic downloading is prohibited, do not commit the component or expose it as a normal `download` asset, and do not use mirrors to bypass the restriction. Provide the official download page and manual instructions in the README and recipe presentation. Use `localInstaller` or implement a user-provided asset override so Sangria can accept a user-selected download, optionally detect it in an explicitly chosen folder, validate it where possible, copy it into the playbook's isolated working directory and install from that local copy.
+- Recheck license terms and redistribution permissions before adding or updating components. Never weaken catalog signatures, source trust or hash verification to work around them.
+- Account for every licensing issue across the whole recipe and its dependencies, not only copied code or an individual installer. Do not defer a known licensing problem. If compliance affects anything beyond an isolated code or recipe change, including Sangria's license, distribution model, catalog format, installation flow, runtime bundling or required user interaction, stop and contact the project owner/maintainer (`@kira-we1ss` on GitHub) before implementing it. If another contributor is running the agent, that contributor's approval is not a substitute.
+
 ## Required checks
 
 Use the Sangria CLI from `/Users/kweiss/Projects/unnamed-app-launcher`:
