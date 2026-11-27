@@ -89,26 +89,6 @@
       "version" : "rolling"
     },
     {
-      "category" : "applications",
-      "id" : "com.notepad-plus-plus.x64",
-      "installMethods" : [
-        "download"
-      ],
-      "name" : "Notepad++ x64",
-      "path" : "applications\/notepad-plus-plus\/x64.yaml",
-      "provider" : "github",
-      "related" : [
-
-      ],
-      "sha256" : "9b918ab6e93666d7a2ba84de7c59284e07385723ef8ee62fe835d8fc6d93f113",
-      "storeIdentifiers" : {
-        "release" : "v8.9.9.1",
-        "repository" : "notepad-plus-plus\/notepad-plus-plus"
-      },
-      "summary" : "Official Notepad++ x64 release, installed silently through ARM64 Wine and FEX.",
-      "version" : "8.9.9.1"
-    },
-    {
       "category" : "stores",
       "id" : "com.valvesoftware.steam",
       "installMethods" : [
