@@ -6,7 +6,7 @@ Recipes are installed through a signed catalog. Sangria also supports trusted th
 
 ## Catalog layout
 
-- `applications/` — desktop applications such as Notepad++
+- `applications/` — desktop application recipes
 - `stores/` — Steam, Epic Games Launcher, GOG Galaxy, EA app and HoYoPlay
 - `games/` — future game-specific recipes
 - `index.json` — generated catalog index
@@ -33,11 +33,11 @@ Single-method recipes stay one-click. Multiple methods open a native chooser.
 Pinned assets include SHA-256:
 
 ```yaml
-version: 8.9.9.1
+version: 1.2.3
 assets:
   installer:
-    url: https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.9.9.1/npp.8.9.9.1.Installer.x64.msi
-    sha256: e3b0607a092ce2604fbdac027db2c94915995e8e568ebd226f8c5493c2f61a80
+    url: https://example.com/app-1.2.3.msi
+    sha256: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
 ```
 
 Store recipes use `version: rolling`. A rolling asset is downloaded on every installation and may use a stable HTTPS URL:
@@ -99,7 +99,6 @@ steps:
 
 | Recipe | Current status |
 |---|---|
-| Notepad++ | MSI installation passed |
 | Steam | Silent installation passed |
 | EA app | Isolated installation trial completed; production unattended support awaits license-consent review. Versioned launcher paths are resolved at launch |
 | HoYoPlay | Current installer waits at its install selector on MetalSharp; unattended completion is not verified. Actual games require separate compatibility review |
