@@ -133,7 +133,7 @@ The native installer displays these choices. For CLI catalog installation, pass 
 |---|---|
 | Steam | Silent installation passed |
 | EA app | Isolated installation trial completed; production unattended support awaits license-consent review. Versioned launcher paths are resolved at launch |
-| Titanfall 2 | Steam and EA choices are available. The Steam variant installs only Steam and lets Steam manage the game-specific EA app integration. Game installation and launch on MetalSharp are unverified; EA agreements remain visible in the vendor interface |
+| Titanfall 2 | Steam and EA choices are available. The Steam variant installs only Steam and launches through Steam so first-run EA/Origin setup is not bypassed. Game installation and launch on MetalSharp are unverified; EA agreements remain visible in the vendor interface |
 | HoYoPlay | Current installer waits at its install selector on MetalSharp; unattended completion is not verified. Actual games require separate compatibility review |
 | GOG Galaxy | Offline installation completes; `GalaxyClientService` fails with 1053 and the renderer crashes |
 | Epic Games Launcher | MSI stalls on the current runtime and is not ready |

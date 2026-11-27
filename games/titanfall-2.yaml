@@ -13,7 +13,7 @@ installMethods: [download]
 storeOptions:
   - id: steam
     name: Steam
-    summary: Installs only Steam. Steam manages the required EA app integration and uses the default Steam library path.
+    summary: Installs only Steam. Steam manages the required EA app integration and handles game launch.
     stores: [com.valvesoftware.steam]
   - id: ea
     name: EA app
@@ -36,9 +36,9 @@ steps:
 shortcuts:
   - name: Titanfall 2
     storeOption: steam
-    target: 'C:\Program Files (x86)\Steam\steamapps\common\Titanfall2\Titanfall2.exe'
-    workingDirectory: 'C:\Program Files (x86)\Steam\steamapps\common\Titanfall2'
-    args: []
+    target: 'C:\Program Files (x86)\Steam\steam.exe'
+    workingDirectory: 'C:\Program Files (x86)\Steam'
+    args: ['steam://rungameid/1237970']
   - name: Titanfall 2
     storeOption: ea
     target: 'C:\Program Files\EA Games\Titanfall2\Titanfall2.exe'

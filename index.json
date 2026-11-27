@@ -38,7 +38,7 @@
         "com.valvesoftware.steam",
         "com.ea.desktop"
       ],
-      "sha256" : "a91538c9864ecea9b274fbf454d82914f095700a517f453c26f8250d38ed21de",
+      "sha256" : "f59cac601e6333ce1cf4499953153b35851b224d8dc699d685aadc8c1cb501b5",
       "storeIdentifiers" : {
         "steam" : "1237970"
       },
@@ -49,7 +49,7 @@
           "stores" : [
             "com.valvesoftware.steam"
           ],
-          "summary" : "Installs only Steam. Steam manages the required EA app integration and uses the default Steam library path."
+          "summary" : "Installs only Steam. Steam manages the required EA app integration and handles game launch."
         },
         {
           "id" : "ea",

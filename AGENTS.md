@@ -119,7 +119,7 @@ Keep this section and the README table accurate:
 
 - Steam: silent installation passed.
 - EA app: an isolated `/quiet /norestart` trial completed, while the interactive bootstrapper waits after package detection. Production silent installation requires explicit license acceptance and maintainer approval of the consent flow before quiet switches are added. `StoreSupport` resolves launchers in versioned folders.
-- Titanfall 2: Steam and EA choices are defined. The Steam variant installs only Steam, which manages the game-specific EA app integration. Game installation and launch on MetalSharp remain unverified. Do not accept EA agreements through recipe flags or metadata.
+- Titanfall 2: Steam and EA choices are defined. The Steam variant installs only Steam and must launch through `steam://rungameid/1237970`, not directly through `Titanfall2.exe`, so Steam can perform first-run EA/Origin setup. Game installation and launch on MetalSharp remain unverified. Do not accept EA agreements through recipe flags or metadata.
 - HoYoPlay: the current `/S` installer waits at its install selector on MetalSharp. Repeated isolated probes did not complete unattended; initialization and vendor configuration networking succeeded. Do not attribute this to MSync or FEX flags without new evidence. Actual games need compatibility work beyond the base recipe.
 - GOG: offline installation completes, but `GalaxyClientService` fails with error 1053 and the renderer crashes.
 - Epic: MSI stalls on the current runtime and is not ready.
